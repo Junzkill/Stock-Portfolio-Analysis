@@ -4,7 +4,7 @@ This project analyzes the performance of a stock portfolio by retrieving histori
 
 ## Overview
 
-The Stock Portfolio Analysis project utilizes Python to retrieve historical stock price data using the `yfinance` library. It then calculates various portfolio metrics, including cumulative returns, volatility, sharpe ratio, and maximum drawdown. Finally, it presents the results through console output and generates a line plot to visualize the portfolio's value over time.
+This project is to solely to demostrate my Python skills. I have used Python to retrieve historical stock price data using the `yfinance` library. It then calculates various portfolio metrics, including cumulative returns, volatility, sharpe ratio, and maximum drawdown. Finally, it presents the results through console output and generates a line plot to visualize the portfolio's value over time.
 
 ## Getting Started
 
@@ -41,7 +41,7 @@ When running the script, the calculated portfolio metrics will be displayed in t
 
 ## Limitations and Future Improvements
 
-Currently, the code assumes a fixed portfolio and date range. Future improvements could include making the portfolio and date range customizable through user input, allowing users to analyze different portfolios and time periods.
+Currently, the code assumes a fixed portfolio and date range. Future improvements could include making the portfolio and date range customizable through user input, allowing users to analyze different portfolios and time periods and connecting the data to API which requires premium packages to further acccess the data of which I do not have.
 
 Furthermore, while the project utilizes a line plot to visualize the portfolio's performance, more sophisticated visualization techniques could be explored to enhance the representation. For example, candlestick charts or interactive plots could provide a more detailed view of the portfolio's fluctuations.
 
