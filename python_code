@@ -1,40 +1,40 @@
-
-
-pip install yfinance
 from datetime import datetime
 import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Define the stocks in the portfolio and their weights
-portfolio = {
-    'AAPL': 0.4,
-    'GOOGL': 0.3,
-    'MSFT': 0.3
-}
+def calculate_portfolio_metrics(stocks):
+    # Define the date range
+    start_date = datetime(2020, 1, 1)
+    end_date = datetime(2021, 1, 1)
 
-# Define the date range
-start_date = datetime(2020, 1, 1)
-end_date = datetime(2021, 1, 1)
+    # Retrieve the stock data
+    stock_data = pd.DataFrame()
+    for symbol in stocks:
+        data = yf.download(symbol, start=start_date, end=end_date)
+        stock_data[symbol] = data['Close']
 
-# Retrieve the stock data
-stock_data = pd.DataFrame()
-for symbol in portfolio.keys():
-    data = yf.download(symbol, start=start_date, end=end_date)
-    stock_data[symbol] = data['Close']
+    # Calculate daily returns
+    daily_returns = stock_data.pct_change()
 
-# Calculate daily returns
-daily_returns = stock_data.pct_change()
+    # Calculate portfolio value over time
+    portfolio_value = (daily_returns * (1 / len(stocks))).sum(axis=1).cumsum() + 1
 
-# Calculate portfolio value over time
-portfolio_value = (daily_returns * list(portfolio.values())).sum(axis=1).cumsum() + 1
+    # Calculate portfolio metrics
+    portfolio_returns = portfolio_value.pct_change()
+    portfolio_cumulative_returns = portfolio_value[-1] - 1
+    portfolio_volatility = portfolio_returns.std()
+    portfolio_sharpe_ratio = portfolio_returns.mean() / portfolio_returns.std()
+    portfolio_max_drawdown = (portfolio_value / portfolio_value.cummax() - 1).min()
+
+    return portfolio_cumulative_returns, portfolio_volatility, portfolio_sharpe_ratio, portfolio_max_drawdown, daily_returns
+
+
+# User input for stocks
+stocks = input("Enter the stocks in your portfolio (comma-separated): ").split(",")
 
 # Calculate portfolio metrics
-portfolio_returns = portfolio_value.pct_change()
-portfolio_cumulative_returns = portfolio_value[-1] - 1
-portfolio_volatility = portfolio_returns.std()
-portfolio_sharpe_ratio = portfolio_returns.mean() / portfolio_returns.std()
-portfolio_max_drawdown = (portfolio_value / portfolio_value.cummax() - 1).min()
+portfolio_cumulative_returns, portfolio_volatility, portfolio_sharpe_ratio, portfolio_max_drawdown, daily_returns = calculate_portfolio_metrics(stocks)
 
 # Print portfolio metrics
 print("Portfolio Metrics:")
@@ -43,6 +43,9 @@ print(f"Cumulative Returns: {portfolio_cumulative_returns:.2%}")
 print(f"Volatility: {portfolio_volatility:.2%}")
 print(f"Sharpe Ratio: {portfolio_sharpe_ratio:.2f}")
 print(f"Max Drawdown: {portfolio_max_drawdown:.2%}")
+
+# Calculate portfolio value for plotting
+portfolio_value = (daily_returns * (1 / len(stocks))).sum(axis=1).cumsum() + 1
 
 # Plot portfolio performance
 plt.figure(figsize=(10, 6))
