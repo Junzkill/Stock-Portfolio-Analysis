@@ -45,10 +45,6 @@ Currently, the code assumes a fixed portfolio and date range. Future improvement
 
 Furthermore, while the project utilizes a line plot to visualize the portfolio's performance, more sophisticated visualization techniques could be explored to enhance the representation. For example, candlestick charts or interactive plots could provide a more detailed view of the portfolio's fluctuations.
 
-## License
-
-This project is licensed under the MIT License. For more details, please refer to the [LICENSE](LICENSE) file.
-
 ## The code
 ```
 from datetime import datetime
